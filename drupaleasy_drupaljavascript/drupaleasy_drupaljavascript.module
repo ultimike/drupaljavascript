@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * DrupalEasy example module for JavaScript and CSS integration.
+ */
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function drupaleasy_drupaljavascript_form_back_to_the_future_survey_entityform_edit_form_alter(&$form, &$form_state) {
+  $form['#attached']['js'] = array(
+    drupal_get_path('module', 'drupaleasy_drupaljavascript') . '/js/iCheck/icheck.min.js',
+    drupal_get_path('module', 'drupaleasy_drupaljavascript') . '/js/drupaleasy_drupaljavascript_entityform.js',
+  );
+  
+  $theme = variable_get('drupaleasy_drupaljavascript_checkbox_theme', 'blue');
+  drupal_add_js(array('drupaleasy_drupaljavascript' => array('icheck_theme' => $theme)), 'setting');
+  $form['#attached']['css'] = array(
+    drupal_get_path('module', 'drupaleasy_drupaljavascript') . '/js/iCheck/skins/line/' . check_plain($theme) . '.css',
+  );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function drupaleasy_drupaljavascript_menu() {
+  $items['admin/config/user-interface/drupaleasy_drupaljavascript'] = array(
+    'title' => 'DrupalEasy Drupal and JavaScript',
+    'description' => 'Configuration page for DrupalEasy Drupal and JavaScript',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('_drupaleasy_drupaljavascript_settings'),
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Custom function that returns configuration form.
+ */
+function _drupaleasy_drupaljavascript_settings() {
+  $form = array();
+
+  $form['drupaleasy_drupaljavascript_checkbox_theme'] = array(
+    '#type' => 'select',
+    '#options' => array(
+      'blue' => t('Blue'),
+      'red' => t('Red'),
+      'green' => t('Green'),
+      'grey' => t('Grey'),
+      'orange' => t('Orange'),
+      'purple' => t('Purple'),
+    ),
+    '#title' => t('iCheck checkbox theme'),
+    '#default_value' => variable_get('drupaleasy_drupaljavascript_checkbox_theme', 'blue'),
+  );
+
+  return system_settings_form($form);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

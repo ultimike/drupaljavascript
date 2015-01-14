@@ -1,0 +1,5 @@
+name = DrupalEasy Drupal and JavaScript
+description = "Example module demonstrating how to integrate Drupal and JavaScript"
+core = 7.x
+package = DrupalEasy
+version = 7.x-0.1
